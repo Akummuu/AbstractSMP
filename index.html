@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The official archive for Abstract SMP — a cinematic Minecraft survival multiplayer series.">
+    <meta name="description" content="The living companion site for Abstract SMP — character histories, world lore, and the stories behind the videos.">
     <meta name="theme-color" content="#08080b">
-    <meta property="og:title" content="Abstract SMP">
-    <meta property="og:description" content="One world. Two perspectives. Every choice leaves a mark.">
-    <meta property="og:image" content="assets/images/thumbnails/akumu/1.png">
+    <meta property="og:title" content="Abstract SMP — The Story Continues">
+    <meta property="og:description" content="Go beyond the videos and deeper into the world of Abstract SMP.">
+    <meta property="og:image" content="assets/images/bgs/KurousIsland.png">
     <meta property="og:type" content="website">
-    <title>Abstract SMP — Series Archive</title>
+    <title>Abstract SMP — The Story Continues</title>
     <link rel="icon" href="assets/images/mark.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/js/app.js" defer></script>
@@ -18,163 +18,104 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Abstract SMP home">
+      <a class="brand" href="index.html" aria-label="Abstract SMP home">
         <span class="brand-mark" aria-hidden="true">A</span>
         <span>Abstract<span class="brand-dot">.</span>SMP</span>
       </a>
-
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
-        <span></span><span></span>
-        <span class="sr-only">Toggle navigation</span>
+        <span></span><span></span><span class="sr-only">Toggle navigation</span>
       </button>
-
       <nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav>
-        <a href="#archive">Archive</a>
-        <a href="#world">The world</a>
-        <a href="#creators">Creators</a>
+        <a class="is-current" href="index.html" aria-current="page">Home</a>
+        <a href="story.html">Story</a>
+        <a href="episodes.html">Episodes</a>
+        <a href="world.html">World</a>
       </nav>
     </header>
 
     <main id="main-content">
-      <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero-art" aria-hidden="true"></div>
-        <div class="hero-shade" aria-hidden="true"></div>
+      <section class="hero home-hero" id="top" aria-labelledby="hero-title">
+        <div class="home-hero-art" aria-hidden="true"></div>
+        <div class="hero-shade home-hero-shade" aria-hidden="true"></div>
         <div class="hero-grid" aria-hidden="true"></div>
-
         <div class="hero-content">
-          <p class="eyebrow"><span></span> The story starts here</p>
-          <h1 id="hero-title"><span>Abstract</span><span class="outline-text">SMP</span></h1>
-          <p class="hero-copy">One world. Two perspectives.<br>Every choice leaves a mark.</p>
-          <a class="button button-primary" href="#archive">
-            Enter the archive
-            <span aria-hidden="true">↘</span>
-          </a>
+          <p class="eyebrow"><span></span> A living story archive</p>
+          <h1 id="hero-title"><span>Beyond</span><span class="outline-text">the videos</span></h1>
+          <p class="hero-copy">The people, places, and unanswered questions of Abstract SMP—documented as the world continues to change.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="story.html">Read the story <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#characters">Meet the characters <span aria-hidden="true">↓</span></a>
+          </div>
         </div>
-
-        <div class="hero-index" aria-hidden="true">
-          <span>WORLD FILE</span>
-          <strong>001</strong>
-        </div>
-
-        <div class="scroll-cue" aria-hidden="true">
-          <span>Scroll to explore</span>
-          <i></i>
-        </div>
+        <div class="hero-index" aria-hidden="true"><span>LOCATION</span><strong>KI</strong></div>
+        <div class="location-label"><span>01</span><div><strong>Kurous Island</strong><small>Abstract SMP</small></div></div>
       </section>
 
-      <section class="archive section" id="archive" aria-labelledby="archive-title">
+      <section class="characters-section section" id="characters" aria-labelledby="characters-title">
         <div class="section-heading reveal">
           <div>
-            <p class="eyebrow"><span></span> Transmission archive</p>
-            <h2 id="archive-title">Choose a<br><em>perspective.</em></h2>
+            <p class="eyebrow"><span></span> Two perspectives</p>
+            <h2 id="characters-title">The people<br><em>inside the story.</em></h2>
           </div>
-          <p class="section-intro">Seven transmissions. Two sides of the same world. Follow the story in order, or see it through one creator's eyes.</p>
+          <p class="section-intro">They entered the same world carrying different histories. What happened next changed them both.</p>
         </div>
 
-        <div class="filter-bar reveal" role="group" aria-label="Filter episodes by creator">
-          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All files <span>07</span></button>
-          <button class="filter-button" type="button" data-filter="akumu" aria-pressed="false">Akumu <span>04</span></button>
-          <button class="filter-button" type="button" data-filter="sighf" aria-pressed="false">Sighf <span>03</span></button>
-        </div>
-
-        <div class="episode-grid" data-episode-grid>
-          <article class="episode-card episode-card-featured reveal" data-creator="akumu">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/akumu/1.png" alt="Two Minecraft characters in a dark, red-lit chamber" width="1280" height="720">
-              <span class="episode-number">A / 01</span>
+        <div class="character-grid">
+          <article class="character-card character-akumu reveal">
+            <a class="character-portrait" href="https://www.youtube.com/@AkumuStories" target="_blank" rel="noopener noreferrer" aria-label="Visit Akumu Stories on YouTube">
+              <img src="assets/images/creators/akumu.jpg" alt="Akumu's YouTube profile portrait" width="900" height="900">
+              <span>Visit channel ↗</span>
+            </a>
+            <div class="character-copy">
+              <p class="character-number">Character file / 01</p>
+              <h3>Akumu</h3>
+              <p>Once a peaceful player, Akumu became an antihero after the wrongful execution of his best friend on the server. What remains is someone shaped by grief, driven by a justice the world refused to give him.</p>
+              <a href="https://www.youtube.com/@AkumuStories" target="_blank" rel="noopener noreferrer">@AkumuStories <span aria-hidden="true">↗</span></a>
             </div>
-            <div class="episode-meta"><span>Akumu</span><h3>Episode 01</h3><span class="arrow" aria-hidden="true">↗</span></div>
           </article>
 
-          <article class="episode-card reveal" data-creator="sighf">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/sighf/1.jpg" alt="Minecraft character facing a monumental blue temple" width="1280" height="720" loading="lazy">
-              <span class="episode-number">S / 01</span>
+          <article class="character-card character-sighf reveal">
+            <a class="character-portrait" href="https://www.youtube.com/@Sighf" target="_blank" rel="noopener noreferrer" aria-label="Visit Sighf on YouTube">
+              <img src="assets/images/creators/sighf.jpg" alt="Sighf's YouTube profile portrait" width="900" height="900">
+              <span>Visit channel ↗</span>
+            </a>
+            <div class="character-copy">
+              <p class="character-number">Character file / 02</p>
+              <h3>Sighf</h3>
+              <p>Stand-offish because of the history he carries, Sighf keeps the world at a careful distance. His guarded nature is not indifference—it is the armor left behind by everything that came before.</p>
+              <a href="https://www.youtube.com/@Sighf" target="_blank" rel="noopener noreferrer">@Sighf <span aria-hidden="true">↗</span></a>
             </div>
-            <div class="episode-meta"><span>Sighf</span><h3>Episode 01</h3><span class="arrow" aria-hidden="true">↗</span></div>
-          </article>
-
-          <article class="episode-card reveal" data-creator="akumu">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/akumu/2.png" alt="A scene from Akumu's second Abstract SMP episode" width="1280" height="720" loading="lazy">
-              <span class="episode-number">A / 02</span>
-            </div>
-            <div class="episode-meta"><span>Akumu</span><h3>Episode 02</h3><span class="arrow" aria-hidden="true">↗</span></div>
-          </article>
-
-          <article class="episode-card reveal" data-creator="sighf">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/sighf/2.jpg" alt="A scene from Sighf's second Abstract SMP episode" width="1280" height="720" loading="lazy">
-              <span class="episode-number">S / 02</span>
-            </div>
-            <div class="episode-meta"><span>Sighf</span><h3>Episode 02</h3><span class="arrow" aria-hidden="true">↗</span></div>
-          </article>
-
-          <article class="episode-card reveal" data-creator="akumu">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/akumu/3.png" alt="A scene from Akumu's third Abstract SMP episode" width="1672" height="941" loading="lazy">
-              <span class="episode-number">A / 03</span>
-            </div>
-            <div class="episode-meta"><span>Akumu</span><h3>Episode 03</h3><span class="arrow" aria-hidden="true">↗</span></div>
-          </article>
-
-          <article class="episode-card reveal" data-creator="sighf">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/sighf/3.jpg" alt="A scene from Sighf's third Abstract SMP episode" width="3840" height="2160" loading="lazy">
-              <span class="episode-number">S / 03</span>
-            </div>
-            <div class="episode-meta"><span>Sighf</span><h3>Episode 03</h3><span class="arrow" aria-hidden="true">↗</span></div>
-          </article>
-
-          <article class="episode-card reveal" data-creator="akumu">
-            <div class="episode-image">
-              <img src="assets/images/thumbnails/akumu/4.png" alt="A scene from Akumu's fourth Abstract SMP episode" width="1672" height="941" loading="lazy">
-              <span class="episode-number">A / 04</span>
-            </div>
-            <div class="episode-meta"><span>Akumu</span><h3>Episode 04</h3><span class="arrow" aria-hidden="true">↗</span></div>
           </article>
         </div>
       </section>
 
-      <section class="world section" id="world" aria-labelledby="world-title">
-        <div class="world-image reveal">
-          <img src="assets/images/thumbnails/sighf/1.jpg" alt="A lone character standing before the Abstract SMP temple" width="1280" height="720" loading="lazy">
-          <span class="coordinate">X 00.00 / Z 00.00</span>
-        </div>
-        <div class="world-copy reveal">
-          <p class="eyebrow"><span></span> Beyond the spawn</p>
-          <h2 id="world-title">A world built on <em>consequence.</em></h2>
-          <p>Alliances form. Civilizations rise. The smallest decision can redraw the map. Abstract SMP is a story told from inside the world by the people changing it.</p>
-          <div class="world-stats" aria-label="Series statistics">
-            <div><strong>02</strong><span>Perspectives</span></div>
-            <div><strong>07</strong><span>Episodes</span></div>
-            <div><strong>01</strong><span>Shared world</span></div>
+      <section class="latest-story section" aria-labelledby="latest-title">
+        <div class="latest-story-inner reveal">
+          <div>
+            <p class="eyebrow"><span></span> The record is still growing</p>
+            <h2 id="latest-title">There is more to every <em>answer.</em></h2>
+          </div>
+          <div>
+            <p>New story files will expand on the history, motives, and consequences that cannot always fit inside an episode.</p>
+            <a class="button" href="story.html">Open story files <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
 
-      <section class="creators section" id="creators" aria-labelledby="creators-title">
-        <div class="creator-title reveal">
-          <p class="eyebrow"><span></span> Meet the players</p>
-          <h2 id="creators-title">Same world.<br><em>Different stories.</em></h2>
-        </div>
-        <div class="creator-list">
-          <article class="creator reveal">
-            <span class="creator-id">01</span>
-            <div><h3>Akumu</h3><p>Four transmissions</p></div>
-            <span class="creator-symbol" aria-hidden="true">A</span>
-          </article>
-          <article class="creator reveal">
-            <span class="creator-id">02</span>
-            <div><h3>Sighf</h3><p>Three transmissions</p></div>
-            <span class="creator-symbol" aria-hidden="true">S</span>
-          </article>
+      <section class="contact-section section" id="contact" aria-labelledby="contact-title">
+        <p class="eyebrow reveal"><span></span> Contact us</p>
+        <div class="contact-layout reveal">
+          <h2 id="contact-title">Let’s make something <em>memorable.</em></h2>
+          <div class="contact-copy">
+            <p>For business inquiries, sponsorships, collaborations, and other opportunities, reach out directly.</p>
+            <a class="contact-email" href="mailto:akumustoriesbusiness@gmail.com?subject=Abstract%20SMP%20Inquiry">akumustoriesbusiness<br>@gmail.com <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">A</span><span>Abstract<span class="brand-dot">.</span>SMP</span></a>
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A</span><span>Abstract<span class="brand-dot">.</span>SMP</span></a>
       <p>Fan-made series hub. Not affiliated with Mojang Studios.</p>
       <a href="#top">Back to top ↑</a>
     </footer>

@@ -1,16 +1,19 @@
 # Abstract SMP website
 
-A static, responsive series archive for Abstract SMP. It has no build step or runtime dependencies, so GitHub Pages can serve it directly from the repository.
+A static, responsive story companion for Abstract SMP. It has no build step or runtime dependencies, so GitHub Pages can serve it directly from the repository.
 
 ## Project structure
 
 ```text
 .
-├── index.html              # Page content and metadata
+├── index.html              # Kurous Island landing page, characters, and contact
+├── story.html              # Ongoing lore records and unanswered questions
+├── episodes.html           # Filterable video/episode archive
+├── world.html              # Locations and world registry
 ├── assets/
 │   ├── css/styles.css      # Layout, visual system, and responsive styles
 │   ├── js/app.js           # Navigation, filters, and reveal effects
-│   └── images/             # Site mark and series thumbnails
+│   └── images/             # Backgrounds, creator portraits, and thumbnails
 ├── .nojekyll               # Keeps GitHub Pages in static-file mode
 └── README.md
 ```
@@ -36,6 +39,9 @@ All asset URLs are relative, so the site works for both account sites and projec
 
 ## Updating content
 
-- Edit copy and episode cards in `index.html`.
+- Add new lore records to the `.story-ledger` in `story.html`.
+- Edit episode cards and their links in `episodes.html`.
+- Add locations or civilizations to `world.html`.
+- Keep the homepage focused on the current series introduction, characters, and contact details.
 - Add images below `assets/images/` and use lowercase file/folder names.
-- Add real episode links by wrapping each `.episode-card` in an anchor or adding a watch link inside it.
+- The creator portraits are local copies of the public images from the supplied YouTube channels.
