@@ -1,8 +1,6 @@
 const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector("[data-menu-button]");
 const nav = document.querySelector("[data-nav]");
-const filterButtons = document.querySelectorAll("[data-filter]");
-const episodeCards = document.querySelectorAll("[data-creator]");
 
 const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 24);
 updateHeader();
@@ -20,19 +18,100 @@ nav?.addEventListener("click", (event) => {
   nav.classList.remove("is-open");
 });
 
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const filter = button.dataset.filter;
+const timelineViewport = document.querySelector("[data-timeline-viewport]");
+const timelineBack = document.querySelector("[data-timeline-back]");
+const timelineForward = document.querySelector("[data-timeline-forward]");
 
-    filterButtons.forEach((item) => {
-      const isCurrent = item === button;
-      item.classList.toggle("is-active", isCurrent);
-      item.setAttribute("aria-pressed", String(isCurrent));
-    });
+const moveTimeline = (direction) => {
+  timelineViewport?.scrollBy({ left: timelineViewport.clientWidth * 0.72 * direction, behavior: "smooth" });
+};
 
-    episodeCards.forEach((card) => {
-      card.classList.toggle("is-hidden", filter !== "all" && card.dataset.creator !== filter);
-    });
+timelineBack?.addEventListener("click", () => moveTimeline(-1));
+timelineForward?.addEventListener("click", () => moveTimeline(1));
+
+timelineViewport?.addEventListener("wheel", (event) => {
+  if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
+
+  const maxScroll = timelineViewport.scrollWidth - timelineViewport.clientWidth;
+  const canMove = (event.deltaY > 0 && timelineViewport.scrollLeft < maxScroll)
+    || (event.deltaY < 0 && timelineViewport.scrollLeft > 0);
+
+  if (!canMove) return;
+  event.preventDefault();
+  timelineViewport.scrollLeft += event.deltaY;
+}, { passive: false });
+
+let dragStartX = 0;
+let dragStartScroll = 0;
+let isDraggingTimeline = false;
+
+timelineViewport?.addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "mouse" && event.button !== 0) return;
+  if (event.target.closest("a, button, summary, .timeline-card, .prelude-card")) return;
+  isDraggingTimeline = true;
+  dragStartX = event.clientX;
+  dragStartScroll = timelineViewport.scrollLeft;
+  timelineViewport.setPointerCapture(event.pointerId);
+});
+
+timelineViewport?.addEventListener("pointermove", (event) => {
+  if (!isDraggingTimeline) return;
+  timelineViewport.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
+});
+
+const stopTimelineDrag = () => { isDraggingTimeline = false; };
+timelineViewport?.addEventListener("pointerup", stopTimelineDrag);
+timelineViewport?.addEventListener("pointercancel", stopTimelineDrag);
+
+const soundToggle = document.querySelector("[data-sound-toggle]");
+let soundEnabled = Boolean(soundToggle);
+let audioContext;
+
+const getAudioContext = () => {
+  if (!soundEnabled) return null;
+  if (!audioContext) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return null;
+    audioContext = new AudioContext();
+  }
+  if (audioContext.state === "suspended") audioContext.resume();
+  return audioContext;
+};
+
+const playInterfaceSound = (frequency, duration, volume = 0.018) => {
+  const context = getAudioContext();
+  if (!context || context.state !== "running") return;
+
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(frequency, context.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(frequency * 0.82, context.currentTime + duration);
+  gain.gain.setValueAtTime(volume, context.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + duration);
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+  oscillator.start();
+  oscillator.stop(context.currentTime + duration);
+};
+
+document.addEventListener("pointerdown", () => getAudioContext(), { once: true });
+
+soundToggle?.addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+  soundToggle.setAttribute("aria-pressed", String(soundEnabled));
+  soundToggle.lastChild.textContent = soundEnabled ? " Sound on" : " Sound off";
+  if (soundEnabled) playInterfaceSound(620, 0.07, 0.022);
+});
+
+document.addEventListener("click", (event) => {
+  if (!soundEnabled || event.target.closest("[data-sound-toggle]")) return;
+  if (event.target.closest("a, button, summary")) playInterfaceSound(480, 0.055, 0.021);
+});
+
+document.querySelectorAll(".timeline-video, .prelude-card, .timeline-control, .episode-summary summary").forEach((element) => {
+  element.addEventListener("pointerenter", () => {
+    if (soundEnabled && audioContext?.state === "running") playInterfaceSound(760, 0.035, 0.009);
   });
 });
 

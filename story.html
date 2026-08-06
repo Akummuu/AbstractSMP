@@ -16,26 +16,28 @@
       <a class="brand" href="index.html" aria-label="Abstract SMP home"><span class="brand-mark" aria-hidden="true">A</span><span>Abstract<span class="brand-dot">.</span>SMP</span></a>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button><span></span><span></span><span class="sr-only">Toggle navigation</span></button>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav>
-        <a href="index.html">Home</a><a class="is-current" href="story.html" aria-current="page">Story</a><a href="episodes.html">Episodes</a><a href="world.html">World</a>
+        <a href="index.html">Home</a><a class="is-current" href="story.html" aria-current="page">Story</a><a href="world.html">World</a>
       </nav>
     </header>
 
-    <main id="main-content" class="inner-page">
-      <header class="page-intro section">
-        <p class="eyebrow reveal"><span></span> Living narrative index</p>
-        <div class="page-intro-grid reveal">
-          <h1>Story<br><em>timeline.</em></h1>
-          <div><p>Follow Abstract SMP in chronological order—from the events that happened before the cameras arrived to every published perspective.</p><span class="status-pill"><i></i> Timeline active</span></div>
-        </div>
-      </header>
-
+    <main id="main-content" class="inner-page timeline-page">
       <section class="timeline-section section" id="timeline" aria-labelledby="timeline-title">
         <div class="timeline-heading reveal">
           <div><p class="eyebrow"><span></span> Chronological record</p><h2 id="timeline-title">Before the footage.<br><em>After the fallout.</em></h2></div>
           <p>Published videos are placed where they occur in the story—not simply by upload date. Hover a published thumbnail for a brief muted preview, or open its summary for more context.</p>
         </div>
 
-        <div class="timeline" data-timeline>
+        <div class="timeline-toolbar reveal">
+          <p><span aria-hidden="true">↔</span> Drag or scroll to move through time</p>
+          <div>
+            <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="true"><span aria-hidden="true">◖</span> Sound on</button>
+            <button class="timeline-control" type="button" data-timeline-back aria-label="Scroll timeline backward">←</button>
+            <button class="timeline-control" type="button" data-timeline-forward aria-label="Scroll timeline forward">→</button>
+          </div>
+        </div>
+
+        <div class="timeline-viewport" data-timeline-viewport tabindex="0" aria-label="Abstract SMP chronological timeline">
+          <div class="timeline" data-timeline>
           <div class="timeline-spine" aria-hidden="true"></div>
 
           <article class="timeline-row timeline-left timeline-placeholder reveal">
@@ -163,7 +165,8 @@
             </div>
           </article>
 
-          <div class="timeline-end reveal"><span></span><p>The story continues</p></div>
+            <div class="timeline-end reveal"><span></span><p>The story continues</p></div>
+          </div>
         </div>
       </section>
     </main>

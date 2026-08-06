@@ -8,7 +8,6 @@ A static, responsive story companion for Abstract SMP. It has no build step or r
 .
 ├── index.html              # Kurous Island landing page, characters, and contact
 ├── story.html              # Ongoing lore records and unanswered questions
-├── episodes.html           # Filterable video/episode archive
 ├── world.html              # Locations and world registry
 ├── assets/
 │   ├── css/styles.css      # Layout, visual system, and responsive styles
@@ -40,7 +39,7 @@ All asset URLs are relative, so the site works for both account sites and projec
 ## Updating content
 
 - Add new lore records to the `.story-ledger` in `story.html`.
-- Edit episode cards and their links in `episodes.html`.
+- Edit video cards, summaries, and chronology in `story.html`.
 - Add locations or civilizations to `world.html`.
 - Keep the homepage focused on the current series introduction, characters, and contact details.
 - Add images below `assets/images/` and use lowercase file/folder names.
