@@ -29,91 +29,48 @@ const moveTimeline = (direction) => {
 timelineBack?.addEventListener("click", () => moveTimeline(-1));
 timelineForward?.addEventListener("click", () => moveTimeline(1));
 
-timelineViewport?.addEventListener("wheel", (event) => {
-  if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
-
-  const maxScroll = timelineViewport.scrollWidth - timelineViewport.clientWidth;
-  const canMove = (event.deltaY > 0 && timelineViewport.scrollLeft < maxScroll)
-    || (event.deltaY < 0 && timelineViewport.scrollLeft > 0);
-
-  if (!canMove) return;
-  event.preventDefault();
-  timelineViewport.scrollLeft += event.deltaY;
-}, { passive: false });
-
 let dragStartX = 0;
 let dragStartScroll = 0;
 let isDraggingTimeline = false;
+let timelineDragDistance = 0;
+let suppressTimelineClick = false;
 
 timelineViewport?.addEventListener("pointerdown", (event) => {
-  if (event.pointerType === "mouse" && event.button !== 0) return;
-  if (event.target.closest("a, button, summary, .timeline-card, .prelude-card")) return;
+  if (event.pointerType !== "mouse" || event.button !== 0) return;
+  if (event.target.closest("button, summary")) return;
   isDraggingTimeline = true;
+  timelineDragDistance = 0;
   dragStartX = event.clientX;
   dragStartScroll = timelineViewport.scrollLeft;
-  timelineViewport.setPointerCapture(event.pointerId);
 });
 
 timelineViewport?.addEventListener("pointermove", (event) => {
   if (!isDraggingTimeline) return;
-  timelineViewport.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
+  const distance = event.clientX - dragStartX;
+  timelineDragDistance = Math.max(timelineDragDistance, Math.abs(distance));
+  if (timelineDragDistance > 6 && !timelineViewport.hasPointerCapture(event.pointerId)) {
+    timelineViewport.setPointerCapture(event.pointerId);
+    timelineViewport.classList.add("is-dragging");
+  }
+  timelineViewport.scrollLeft = dragStartScroll - distance;
 });
 
-const stopTimelineDrag = () => { isDraggingTimeline = false; };
+const stopTimelineDrag = () => {
+  if (!isDraggingTimeline) return;
+  suppressTimelineClick = timelineDragDistance > 6;
+  isDraggingTimeline = false;
+  timelineViewport?.classList.remove("is-dragging");
+  window.setTimeout(() => { suppressTimelineClick = false; }, 0);
+};
 timelineViewport?.addEventListener("pointerup", stopTimelineDrag);
 timelineViewport?.addEventListener("pointercancel", stopTimelineDrag);
-
-const soundToggle = document.querySelector("[data-sound-toggle]");
-let soundEnabled = Boolean(soundToggle);
-let audioContext;
-
-const getAudioContext = () => {
-  if (!soundEnabled) return null;
-  if (!audioContext) {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return null;
-    audioContext = new AudioContext();
-  }
-  if (audioContext.state === "suspended") audioContext.resume();
-  return audioContext;
-};
-
-const playInterfaceSound = (frequency, duration, volume = 0.018) => {
-  const context = getAudioContext();
-  if (!context || context.state !== "running") return;
-
-  const oscillator = context.createOscillator();
-  const gain = context.createGain();
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(frequency, context.currentTime);
-  oscillator.frequency.exponentialRampToValueAtTime(frequency * 0.82, context.currentTime + duration);
-  gain.gain.setValueAtTime(volume, context.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + duration);
-  oscillator.connect(gain);
-  gain.connect(context.destination);
-  oscillator.start();
-  oscillator.stop(context.currentTime + duration);
-};
-
-document.addEventListener("pointerdown", () => getAudioContext(), { once: true });
-
-soundToggle?.addEventListener("click", () => {
-  soundEnabled = !soundEnabled;
-  soundToggle.setAttribute("aria-pressed", String(soundEnabled));
-  soundToggle.lastChild.textContent = soundEnabled ? " Sound on" : " Sound off";
-  if (soundEnabled) playInterfaceSound(620, 0.07, 0.022);
-});
-
-document.addEventListener("click", (event) => {
-  if (!soundEnabled || event.target.closest("[data-sound-toggle]")) return;
-  if (event.target.closest("a, button, summary")) playInterfaceSound(480, 0.055, 0.021);
-});
-
-document.querySelectorAll(".timeline-video, .prelude-card, .timeline-control, .episode-summary summary").forEach((element) => {
-  element.addEventListener("pointerenter", () => {
-    if (soundEnabled && audioContext?.state === "running") playInterfaceSound(760, 0.035, 0.009);
-  });
-});
+timelineViewport?.addEventListener("dragstart", (event) => event.preventDefault());
+timelineViewport?.addEventListener("click", (event) => {
+  if (!suppressTimelineClick) return;
+  event.preventDefault();
+  event.stopPropagation();
+  suppressTimelineClick = false;
+}, true);
 
 const previewCards = document.querySelectorAll(".timeline-video[data-video-id]");
 const canPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches
