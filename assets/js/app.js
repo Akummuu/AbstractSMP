@@ -36,6 +36,52 @@ filterButtons.forEach((button) => {
   });
 });
 
+const previewCards = document.querySelectorAll(".timeline-video[data-video-id]");
+const canPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  && !navigator.connection?.saveData;
+
+if (canPreview) {
+  const previewTimers = new WeakMap();
+
+  const stopPreview = (card) => {
+    const timers = previewTimers.get(card);
+    if (timers) {
+      window.clearTimeout(timers.start);
+      window.clearTimeout(timers.stop);
+    }
+    card.querySelector(".timeline-preview")?.replaceChildren();
+    card.classList.remove("is-previewing");
+    previewTimers.delete(card);
+  };
+
+  previewCards.forEach((card) => {
+    card.addEventListener("pointerenter", () => {
+      if (previewTimers.has(card)) return;
+
+      const timers = { start: 0, stop: 0 };
+      timers.start = window.setTimeout(() => {
+        const preview = card.querySelector(".timeline-preview");
+        if (!preview) return;
+
+        const start = Number.parseInt(card.dataset.previewStart || "0", 10);
+        const iframe = document.createElement("iframe");
+        iframe.title = "Muted episode preview";
+        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.src = `https://www.youtube-nocookie.com/embed/${card.dataset.videoId}?autoplay=1&mute=1&controls=0&disablekb=1&playsinline=1&rel=0&start=${start}&end=${start + 8}`;
+        preview.replaceChildren(iframe);
+        card.classList.add("is-previewing");
+        timers.stop = window.setTimeout(() => stopPreview(card), 8200);
+      }, 450);
+
+      previewTimers.set(card, timers);
+    });
+
+    card.addEventListener("pointerleave", () => stopPreview(card));
+  });
+}
+
 const revealItems = document.querySelectorAll(".reveal");
 
 if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
