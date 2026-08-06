@@ -9,6 +9,7 @@ A static, responsive story companion for Abstract SMP. It has no build step or r
 ├── index.html              # Kurous Island landing page, characters, and contact
 ├── story.html              # Ongoing lore records and unanswered questions
 ├── world.html              # Locations and world registry
+├── wip.html                # Temporary public destination for the World tab
 ├── assets/
 │   ├── css/styles.css      # Layout, visual system, and responsive styles
 │   ├── js/app.js           # Navigation, filters, and reveal effects

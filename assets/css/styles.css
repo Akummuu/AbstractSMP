@@ -264,6 +264,23 @@ img { display: block; max-width: 100%; }
 .timeline-end { flex: 0 0 240px; height: 900px; justify-content: center; padding-top: 0; scroll-snap-align: end; }
 .timeline-card-title h3 { font-size: clamp(1.25rem, 2vw, 2rem); }
 
+/* Temporary World gate */
+.wip-main { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 8rem var(--page-padding) 10rem; isolation: isolate; overflow: hidden; }
+.wip-art { position: absolute; z-index: -4; inset: 0; background: url("../images/bgs/KurousIsland.png") center / cover no-repeat; filter: grayscale(.75) brightness(.5); transform: scale(1.05); animation: hero-arrive 1.4s cubic-bezier(.2,.8,.2,1) both; }
+.wip-shade { position: absolute; z-index: -3; inset: 0; background: linear-gradient(90deg, rgba(8,8,11,.97), rgba(8,8,11,.7) 55%, rgba(8,8,11,.3)), linear-gradient(0deg, rgba(8,8,11,.9), transparent 70%); }
+.wip-content { position: relative; width: min(950px, 82vw); }
+.wip-code { position: absolute; top: -3rem; right: 0; margin: 0; color: transparent; font-family: var(--font-mono); font-size: clamp(3rem, 7vw, 7rem); letter-spacing: -.08em; -webkit-text-stroke: 1px rgba(240,238,232,.18); }
+.wip-content h1 { margin: 0; font-size: clamp(4.2rem, 10vw, 10rem); font-weight: 500; letter-spacing: -.08em; line-height: .78; text-transform: uppercase; }
+.wip-content h1 em { color: transparent; font-family: Georgia, serif; font-weight: 400; text-transform: none; -webkit-text-stroke: 1px rgba(240,238,232,.72); }
+.wip-content > p:not(.eyebrow, .wip-code) { max-width: 40rem; margin: 3rem 0 2rem; color: rgba(240,238,232,.7); line-height: 1.8; }
+.wip-actions { display: flex; align-items: center; gap: 1.5rem; }
+.wip-progress { position: absolute; right: var(--page-padding); bottom: 2.5rem; left: var(--page-padding); display: grid; grid-template-columns: auto minmax(10rem, 28rem); align-items: end; justify-content: end; gap: 1.5rem; }
+.wip-progress > div { display: flex; flex-direction: column; gap: .3rem; }
+.wip-progress span, .wip-progress strong { font-family: var(--font-mono); font-size: .48rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+.wip-progress span { color: var(--muted); }
+.wip-progress i { position: relative; height: 2px; overflow: hidden; background: rgba(240,238,232,.14); }
+.wip-progress i span { position: absolute; inset: 0 auto 0 0; width: 38%; background: var(--red); animation: wip-pulse 2.4s ease-in-out infinite; }
+
 /* World page */
 .world-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding: 8rem var(--page-padding) clamp(4rem, 9vh, 7rem); isolation: isolate; overflow: hidden; }
 .world-hero > img { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: hero-arrive 1.4s cubic-bezier(.2,.8,.2,1) both; }
@@ -318,6 +335,7 @@ img { display: block; max-width: 100%; }
 
 @keyframes hero-arrive { from { opacity: 0; transform: scale(1.12); } to { opacity: 1; transform: scale(1.04); } }
 @keyframes pulse-line { 0%,100% { transform: scaleX(.25); opacity: .3; } 50% { transform: scaleX(1); opacity: 1; } }
+@keyframes wip-pulse { 0%,100% { width: 22%; opacity: .55; } 50% { width: 52%; opacity: 1; } }
 
 @media (max-width: 800px) {
   .menu-button { display: grid; width: 2.75rem; height: 2.75rem; place-content: center; gap: .35rem; cursor: pointer; }
@@ -367,6 +385,13 @@ img { display: block; max-width: 100%; }
   .character-sighf .character-portrait, .character-sighf .character-copy { grid-column: 1; grid-row: auto; }
   .character-portrait { min-height: 23rem; }
   .world-hero h1 { font-size: clamp(4rem, 22vw, 7rem); }
+  .wip-main { align-items: flex-end; padding-bottom: 10rem; }
+  .wip-content { width: 100%; }
+  .wip-content h1 { font-size: clamp(3.2rem, 15vw, 4.6rem); }
+  .wip-content > p:not(.eyebrow, .wip-code) { margin-block: 2rem; font-size: .9rem; }
+  .wip-code { top: -5rem; font-size: 3.5rem; }
+  .wip-actions { align-items: flex-start; flex-direction: column; }
+  .wip-progress { grid-template-columns: 1fr; gap: .7rem; }
   .timeline-heading h2 { font-size: clamp(2.7rem, 14vw, 4rem); }
   .timeline-toolbar { align-items: flex-start; flex-direction: column; gap: .8rem; }
   .timeline-toolbar > div { align-self: stretch; }
